@@ -1,0 +1,41 @@
+#include<bits/stdc++.h>
+
+typedef long long int ll;
+
+#define OnekFast std::ios_base::sync_with_stdio(false), std::cin.tie(0), std::cout.tie(0);
+#define error 10e-8
+
+int main(){
+    OnekFast;
+
+    int l, r;
+
+    while(std::cin >> l >> r){
+
+        int cycle = 1, n, cnt;
+        
+        std::cout << l << " " << r << " ";
+
+        // Swapping values in case l > r
+        if(l > r) {
+            l = l + r;
+            r = l - r;
+            l = l - r;
+        }
+
+        for(int i=l;i<=r;i++){
+            n = i;
+            cnt = 1;
+
+            while(n != 1){
+                if(n % 2 == 0) n /= 2;
+                else n = 3*n + 1;
+                cnt++; 
+            }
+
+            cycle = std::max(cycle, cnt);
+        }
+
+        std::cout << cycle << "\n";
+    }
+}
