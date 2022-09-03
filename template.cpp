@@ -87,3 +87,17 @@ int factorialTrailingZeroes(ll n){
 
     return ans;
 }
+
+ll binarySearch(std::vector<ll> &vec, ll l, ll r, ll target){
+    ll mid = l + (r- l) / 2;
+    if(l <= r ){
+        if(vec[mid] == target){
+            return mid;
+        }else if(vec[mid] > target){
+            return binarySearch(vec, l, mid - 1, target);
+        }else return binarySearch(vec, mid + 1, r, target);
+    }else{
+        return mid;
+    }
+}
+
