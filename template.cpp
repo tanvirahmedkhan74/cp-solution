@@ -101,3 +101,74 @@ ll binarySearch(std::vector<ll> &vec, ll l, ll r, ll target){
     }
 }
 
+int binary_search_lowerbound(const vector<int>& a, int key) {
+    int res = a.size();
+    int l = 0, r = a.size() - 1;
+    while (l <= r) {
+        int mid = (l + r) / 2;
+        if (a[mid] >= key) {
+            res = mid;
+            r = mid - 1;
+        } else /* if (a[mid] < key) */ {
+            l = mid + 1;
+        }
+    }
+    return res;
+}
+ 
+// upperbound(x) = position of first element y such that y > x 
+int binary_search_upperbound(const vector<int>& a, int key) {
+    int res = a.size();
+    int l = 0, r = a.size() - 1;
+    while (l <= r) {
+        int mid = (l + r) / 2;
+        if (a[mid] > key) {
+            res = mid;
+            r = mid - 1;
+        } else /* if (a[mid] < key) */ {
+            l = mid + 1;
+        }
+    }
+    return res;
+}
+ 
+// precision handling
+// x = 1.7 (actrually 1.70000234 or even 1.6999962)
+// if (x == 1.7)
+ 
+const double eps = 1e-9; // == 0.000000001
+ 
+bool is_equal(double x, double y) {
+    return abs(x - y) <= eps;
+}
+ 
+// 1.600000001 < 1.600000002 (diff == 1e-9)
+ 
+bool is_less(double x, double y) {
+    return x + eps < y;
+}
+ 
+bool is_greater(double x, double y) {
+    return is_less(y, x);
+}
+ 
+// 0, 0.01, ..., 0.25, ..., 0.49, ..., 0.50, ..., 0.51, ..., 1.0
+//               ^n                    ^sqrt(n)
+// n = 0.25 => expected answer = 0.50
+ 
+double square_root(double n) {
+    assert(n >= 0);
+    double l = 0, r = (n + eps < 1 ? 1 : n);
+    while (l < r) {
+        double mid = (l + r) / 2;
+        double mid_squared = mid * mid;
+        if (is_equal(mid_squared, n)) {
+            return mid;
+        } else if (is_less(mid_squared, n)) {
+            l = mid;
+        } else /* if (is_greater(mid_squared, n)) */ {
+            r = mid;
+        }
+    }
+    return l;
+}
