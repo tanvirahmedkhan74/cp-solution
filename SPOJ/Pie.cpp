@@ -16,7 +16,7 @@ bool checkPie(const std::vector<double>& vec, int s, int f, double mid)
     int cnt = 0;
 
     for(int i=0;i<s;i++){
-        cnt += (int)std::floor(vec[i] / mid);
+        cnt += (int)(vec[i] / mid);
 
         if(cnt >= f) break;
     }
@@ -59,7 +59,7 @@ int main()
             double mid = l + (r - l) / 2.0;
 
             if(checkPie(pie, n, f + 1, mid)){
-                ans = std::max(ans,mid);
+                ans = mid;
                 l = mid;
             }else r = mid;
         }
